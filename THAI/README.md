@@ -1,4 +1,4 @@
-# คู่มือติดตั้ง SUI Full Node แบบ Brinary
+# คู่มือติดตั้ง SUI Full Node แบบ Binary
 
 ### สเปคเครื่องที่ทาง SUI กำหนดมา
 >:black_square_button: OS Ubuntu 20.04 ++<br>

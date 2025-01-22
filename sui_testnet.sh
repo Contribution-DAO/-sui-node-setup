@@ -29,7 +29,7 @@ sudo curl https://sh.rustup.rs -sSf | sh -s -- -y
 source $HOME/.cargo/env
 
 
-echo -e "\e[1m\e[32m4. Download Sui Binaries \e[0m" && sleep 1
+echo -e "\e[1m\e[32m4. Download Sui Main GitHub Repository \e[0m" && sleep 1
 cd $HOME
 rm -rf sui
 git clone https://github.com/MystenLabs/sui.git
@@ -38,9 +38,11 @@ git remote add upstream https://github.com/MystenLabs/sui
 git fetch upstream
 git checkout -B testnet --track upstream/testnet
 
-cargo build -p sui-node -p sui --release
+echo -e "\e[1m\e[32m4. Building binaries: sui-node, sui, sui-tool \e[0m" && sleep 1
+cargo build -p sui-node -p sui -p sui-tool --release
 mv ~/sui/target/release/sui-node /usr/local/bin/
 mv ~/sui/target/release/sui /usr/local/bin/
+mv ~/sui/target/release/sui-tool /usr/local/bin/
 
 
 
@@ -75,7 +77,11 @@ p2p-config:
    - address: "/ip4/65.109.108.186/udp/8084"
 EOF
 
-
+# Reference:
+# https://docs.sui.io/guides/operator/snapshots
+echo -e "\e[1m\e[32m3. Download Snapshot \e[0m" && sleep 1
+echo "Snapshot: 1 ~ 2 TB disk space is required"
+sui-tool download-db-snapshot --latest --path $HOME/.sui/db --network testnet --num-parallel-downloads 25 --no-sign-request
 
 
 echo -e "\e[1m\e[32m5. Make Sui Service \e[0m" && sleep 1
